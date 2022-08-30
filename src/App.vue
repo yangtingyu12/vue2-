@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h1>黑马头条</h1>
+    <keep-alive :exclude="['ArticleDetail', 'Login', 'Search', 'SearchResult']">
     <router-view />
+    </keep-alive>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "App",
+};
 </script>
 
 <style lang="less">
