@@ -81,10 +81,9 @@
 </template>
 
 <script>
-import { MyNotify } from '@/utils/Notify'
+import { MyNotify } from "@/utils/Notify";
 import { userProfileAPI, updatePhotoAPI, updateProfileAPI } from "@/api";
 import { Dialog, DatetimePicker } from "vant";
-import moment from "moment";
 import { mapMutations } from "vuex";
 export default {
   name: "UserEdit",
@@ -165,12 +164,18 @@ export default {
     },
     // 时间选择
     async confirmFn() {
+      // 时间选择
       // console.log(this.currentDate instanceof Date)
       // this.currentDate里值是日期对象
       // 但是后台要"年-月-日"格式字符串参数值
 
       console.log(this.currentDate);
-      const dateStr = moment(this.currentDate).format("YYYY-MM-DD");
+      const year = this.currentDate.getFullYear();
+      let month = this.currentDate.getMonth() + 1;
+      let day = this.currentDate.getDate();
+      month = month < 10 ? "0" + month : month;
+      day = day < 10 ? "0" + day : day;
+      const dateStr = `${year}-${month}-${day}`;
       await updateProfileAPI({
         birthday: dateStr,
       });
