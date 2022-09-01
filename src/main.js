@@ -3,25 +3,25 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible'
-import '@/styles/index.less'
-import hljs from 'highlight.js' // hljs对象
-import 'highlight.js/styles/default.css' // 代码高亮的样式
- 
-// 加载 Vant 核心组件库
-import Vant from 'vant'
-// 加载 Vant 全局样式
-import 'vant/lib/index.css'
-
-//全局自定义指令
 import diretivesObj from '@/utils/directives'
-//注册分割线组件, 在main.js
-import { Divider } from 'vant'
-Vue.use(Divider)
+// import hljs from 'highlight.js'
+import 'highlight.js/styles/default.css' // 代码高亮的样式
+import '@/VantRegister' // 注册vant组件
+
+// Vue.directive('highlight', function (el) { // 自定义一个代码高亮指令
+//   const highlight = el.querySelectorAll('pre, code') // 获取里面所有pre或者code标签
+//   highlight.forEach((block) => {
+//     hljs.highlightBlock(block) // 突出显示pre和code内标签, 并自动识别语言, 添加类名和样式
+//   })
+// })
 
 Vue.use(diretivesObj)
-
 Vue.config.productionTip = false
-Vue.use(Vant);
+if (process.env.NODE_ENV !== 'development') { // process是Node环境全部变量, 运行时根据敲击的命令不同, 脚手架会取环境变量给env添加属性和值
+  console.log = function () {}
+  console.error = function () {}
+  console.dir = function () {}
+}
 
 new Vue({
   router,

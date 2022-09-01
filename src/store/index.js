@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {setStorage,getStorage} from '@/utils/storage'
 import { loginApi } from "@/api/user";
 Vue.use(Vuex)
-
 export default new Vuex.Store({
   state: {
-    token: localStorage.getItem('token') || '',
-    refresh_token: localStorage.getItem('refresh_token') || '',
-    user: JSON.parse(localStorage.getItem('user')) || {} // 用户基本资料(默认从本地取)
+    token: getStorage('token') || '',
+    refresh_token: getStorage('refresh_token') || '',
+    user: JSON.parse(getStorage('user')) || {} // 用户基本资料(默认从本地取)
   },
   getters: {
     //用户头像
@@ -18,25 +18,25 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token
-      localStorage.setItem('token', token)
+      setStorage('token', token)
     },
     setRefreshToken(state, refreshToken) {
       state.refresh_token = refreshToken
-      localStorage.setItem('refresh_token', refreshToken)
+      setStorage('refresh_token', refreshToken)
     },
     // ...
     setUser(state, userObj) {
       state.user = userObj
-      localStorage.setItem('user', JSON.stringify(userObj))
+      setStorage('user', JSON.stringify(userObj))
     },
     //修改头像
     updatePhoto(state, photo) {
       state.user.photo = photo
-      localStorage.setItem('user', JSON.stringify(state.user))
+      setStorage('user', JSON.stringify(state.user))
     },
     updateName(state, theName) {
       state.user.name = theName
-      localStorage.setItem('user', JSON.stringify(state.user))
+      setStorage('user', JSON.stringify(state.user))
     }
   },
   actions: {
